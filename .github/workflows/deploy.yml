@@ -33,7 +33,7 @@ jobs:
           pwd
           mkdir -p .ssh
           echo "${{ secrets.RASPKEY }}" > .ssh/id_ed25519
-          chmod 600 id_ed25519
+          chmod 600 .ssh/id_ed25519
           ls -al /home/runner/.ssh
           pwd
           ls -al
