@@ -16,7 +16,7 @@ func main() {
 	http.HandleFunc("/ger", gerHandler)
 
 	port := dflt.EnvString("PORT", "8080")
-	fmt.Printf("Starting server on PORT=%s", port)
+	log.Printf("Starting server: GOOGLE_MAPS_API_KEY=**** PORT=%s", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
