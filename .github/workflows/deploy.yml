@@ -38,3 +38,10 @@ jobs:
           pwd
           ls -al
           ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -p 22322 siuyin@rasp.beyondbroadcast.com ls -al
+
+      - name: Deploy
+        run: |
+          cd /home/runner/gmap/gmap
+          pwd
+          ls -al
+          ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -p 22322 siuyin@rasp.beyondbroadcast.com ls -al
