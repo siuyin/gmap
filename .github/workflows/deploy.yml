@@ -1,0 +1,40 @@
+name: Build and deploy 
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    tags:
+      - "v**"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  buildAndDeploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # - name: Build for ARMv6 raspberry pi
+      #   run: |
+      #     go version
+      #     go mod tidy
+      #     go test ./...
+      #     GOOS=linux GOARCH=arm GOARM=6 go build -o gmap .
+      #     file ./gmap
+      #     ls -lh ./gmap
+
+      - name: Setup keys
+        run: |
+          cd
+          pwd
+          mkdir -p .ssh
+          echo "${{ secrets.RASPKEY }}" > .ssh/id_ed25519
+          chmod 600 id_ed25519
+          ls -al /home/runner/.ssh
+          pwd
+          ls -al
+          ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -p 22322 siuyin@rasp.beyondbroadcast.com ls -al
