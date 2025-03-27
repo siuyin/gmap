@@ -1,21 +1,14 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-	<title>MyLoc</title>
-	<script defer
-		src="https://maps.googleapis.com/maps/api/js?key={{.Key}}&callback=console.debug&libraries=maps,marker&v=beta&loading=async">
-		</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
+	<script src="htmx.min.js"></script>
+	<title>gmap</title>
 </head>
-
-<body>
-	<h1>My Location</h1>
-	<gmp-map center="1.3467093706130981,103.77416229248047" zoom="17" map-id="LOC_MAP_ID">
-		<gmp-advanced-marker position="1.3467093706130981,103.77416229248047" title="Main Entrance"></gmp-advanced-marker>
-		<gmp-advanced-marker position="1.3460384788439832, 103.77331987146817"
-			title="Lobby B Entrance"></gmp-advanced-marker>
-	</gmp-map>
+<body hx-boost="true">
+	{{template "nav.html"}}
+	<h1>Mapping Experiments</h1>
 </body>
-
 </html>
