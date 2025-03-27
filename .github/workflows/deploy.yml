@@ -49,5 +49,5 @@ jobs:
           ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -p 22322 siuyin@rasp.beyondbroadcast.com ps aux|grep gmap || true
           ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -p 22322 siuyin@rasp.beyondbroadcast.com killall gmap || true
           scp -P 22322 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no gmap siuyin@rasp.beyondbroadcast.com:
-          ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -p 22322 siuyin@rasp.beyondbroadcast.com nohup GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }} PORT=8081 ./gmap 2>&1 </dev/null &
+          ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -p 22322 siuyin@rasp.beyondbroadcast.com nohup "GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" PORT=8081 ./gmap 2>&1 </dev/null &
           ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no  -p 22322 siuyin@rasp.beyondbroadcast.com ps aux|grep gmap 
