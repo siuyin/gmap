@@ -17,6 +17,7 @@ func main() {
 	http.HandleFunc("/myloc", myLocationPageHandler)
 	http.HandleFunc("/ger", gerHandler)
 	http.HandleFunc("/{$}", indexHandler)
+	http.HandleFunc("/index.html", indexHandler)
 
 	http.Handle("/", http.FileServer(http.FS(public.Content)))
 
