@@ -13,7 +13,7 @@ import (
 var t *template.Template
 
 func main() {
-	t = template.Must(template.ParseFS(public.Content, "*.html"))
+	t = template.Must(template.ParseFS(public.Content, "tmpl/*"))
 	http.HandleFunc("/myloc", myLocationPageHandler)
 	http.HandleFunc("/ger", gerHandler)
 	http.HandleFunc("/{$}", indexHandler)
