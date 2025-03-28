@@ -7,9 +7,11 @@
     </title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="placepicker/style.css">
-    <script type="module"
+    <!-- <script type="module"
         src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js">
-        </script>
+        </script> -->
+    <script type="module" src="https://unpkg.com/@googlemaps/extended-component-library"></script>
+
 </head>
 
 <body>
@@ -21,6 +23,8 @@
             <gmpx-place-picker placeholder="Enter an address"></gmpx-place-picker>
         </div>
     </div>
+    <p class="result"></p>
+    <script src="placepicker/main.js" defer></script>
     {{template "footer.html"}}
 </body>
 

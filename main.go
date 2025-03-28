@@ -19,6 +19,7 @@ func main() {
 	http.HandleFunc("/{$}", indexHandler)
 	http.HandleFunc("/placepicker",placePickerHandler)
 	http.HandleFunc("/placepickermap",placePickerMapHandler)
+	http.HandleFunc("/datalayers",dataLayersHandler)
 	http.HandleFunc("/index.html", indexHandler)
 
 	http.Handle("/", http.FileServer(http.FS(public.Content)))
@@ -49,3 +50,8 @@ func placePickerMapHandler(w http.ResponseWriter, r *http.Request) {
 	key := dflt.EnvString("GOOGLE_MAPS_API_KEY", "your-api-key-here")
 	t.ExecuteTemplate(w, "placepickermap.html", struct{ Key string }{key})
 }
+
+func dataLayersHandler(w http.ResponseWriter, r *http.Request) {
+	key := dflt.EnvString("GOOGLE_MAPS_API_KEY", "your-api-key-here")
+	t.ExecuteTemplate(w, "datalayers.html", struct{ Key string }{key})
+	}
