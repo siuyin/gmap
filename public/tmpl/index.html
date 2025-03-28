@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,17 @@
 	<script src="htmx.min.js"></script>
 	<title>gmap</title>
 </head>
-<body hx-boost="true">
+
+<body>
 	{{template "nav.html"}}
 	<h1>Mapping Experiments</h1>
+
+	<ul>
+		<li><a href="placepicker">Place picker</a></li>
+		<li><a href="placepickermap">Place picker with Map</a></li>
+	</ul>
+
 	{{template "footer.html"}}
 </body>
+
 </html>

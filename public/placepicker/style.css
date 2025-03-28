@@ -1,0 +1,10 @@
+#place-picker-box {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#place-picker-container {
+    text-align: left;
+}

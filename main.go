@@ -17,6 +17,8 @@ func main() {
 	http.HandleFunc("/myloc", myLocationPageHandler)
 	http.HandleFunc("/ger", gerHandler)
 	http.HandleFunc("/{$}", indexHandler)
+	http.HandleFunc("/placepicker",placePickerHandler)
+	http.HandleFunc("/placepickermap",placePickerMapHandler)
 	http.HandleFunc("/index.html", indexHandler)
 
 	http.Handle("/", http.FileServer(http.FS(public.Content)))
@@ -36,4 +38,14 @@ func myLocationPageHandler(w http.ResponseWriter, r *http.Request) {
 
 func gerHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello from /ger")
+}
+
+func placePickerHandler(w http.ResponseWriter, r *http.Request) {
+	key := dflt.EnvString("GOOGLE_MAPS_API_KEY", "your-api-key-here")
+	t.ExecuteTemplate(w, "placepicker.html", struct{ Key string }{key})
+}
+
+func placePickerMapHandler(w http.ResponseWriter, r *http.Request) {
+	key := dflt.EnvString("GOOGLE_MAPS_API_KEY", "your-api-key-here")
+	t.ExecuteTemplate(w, "placepickermap.html", struct{ Key string }{key})
 }
