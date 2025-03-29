@@ -47,15 +47,15 @@ init();
 
 async function init2() {
   console.log("init2")
-  const {PinElement} = await google.maps.importLibrary("marker")
+  const { PinElement } = await google.maps.importLibrary("marker")
   await customElements.whenDefined('gmp-map');
 
   const map = document.querySelector('gmp-map');
   const marker = document.querySelector('gmp-advanced-marker');
   const placePicker = document.querySelector('gmpx-place-picker');
   const infowindow = new google.maps.InfoWindow();
-  const whitePin = new PinElement({ glyphColor: "white", background:"#6600cc" });
-  
+  const whitePin = new PinElement({ glyphColor: "white", background: "#6600cc" });
+
 
   map.innerMap.setOptions({
     mapTypeControl: false
@@ -90,7 +90,7 @@ async function init2() {
     infowindow.open(map.innerMap, marker);
   });
 
-  marker.addEventListener("gmp-click",()=>{
+  marker.addEventListener("gmp-click", () => {
     const place = placePicker.value
     marker.content = whitePin.element
     infowindow.setContent(
