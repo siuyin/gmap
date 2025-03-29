@@ -90,7 +90,7 @@ async function init2() {
     infowindow.open(map.innerMap, marker);
   });
 
-  marker.addEventListener("click",()=>{
+  marker.addEventListener("gmp-click",()=>{
     const place = placePicker.value
     marker.content = whitePin.element
     infowindow.setContent(
