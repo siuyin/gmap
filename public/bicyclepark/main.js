@@ -5,20 +5,19 @@
  */
 let map;
 let infoWindow;
+let whitePin;
 
-async function init() {
+async function loadData() {
   const { InfoWindow } = await google.maps.importLibrary("maps");
+  const { PinElement } = await google.maps.importLibrary("marker")
+  whitePin = new PinElement({ glyphColor: "white", background: "#6600cc" });
 
   map = document.querySelector('gmp-map').innerMap;
+  setInitialMapPosition()
   infoWindow = new InfoWindow({ pixelOffset: { height: -37 } });
 
-  // Get the earthquake data (JSONP format).
-  // This feed is a copy from the USGS feed, you can find the originals here:
-  //   http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
-  const script = document.createElement("script");
-  // script.src = "https://storage.googleapis.com/mapsdevsite/json/quakes.geo.json";
-  script.src = "bicyclepark/ltaBicycleRack.geojson"
-  document.head.appendChild(script);
+  map.data.loadGeoJson("bicyclepark/ltaBicycleRack.geojson");
+  map.data.addListener('click', (e) => showRackInfo(e.latLng, e.feature));
 }
 
 function showRackInfo(position, feature) {
@@ -32,29 +31,15 @@ function showRackInfo(position, feature) {
   infoWindow.open({ map, shouldFocus: false });
 }
 
-// Defines the callback function referenced in the jsonp file.
-window.eqfeed_callback = (data) => {
-  map.data.addGeoJson(data);
-  map.data.setStyle((feature) => ({
-    title: feature.getProperty('place')
-  }));
-  map.data.addListener('click', (e) => showRackInfo(e.latLng, e.feature));
-}
+async function init() {
+  await loadData()
 
-init();
-
-///////////////////////////////////////////////////////////////////
-
-async function init2() {
-  console.log("init2")
-  const { PinElement } = await google.maps.importLibrary("marker")
   await customElements.whenDefined('gmp-map');
 
   const map = document.querySelector('gmp-map');
   const marker = document.querySelector('gmp-advanced-marker');
   const placePicker = document.querySelector('gmpx-place-picker');
   const infowindow = new google.maps.InfoWindow();
-  const whitePin = new PinElement({ glyphColor: "white", background: "#6600cc" });
 
 
   map.innerMap.setOptions({
@@ -92,6 +77,8 @@ async function init2() {
 
   marker.addEventListener("gmp-click", () => {
     const place = placePicker.value
+    if (!place) { return }
+    
     marker.content = whitePin.element
     infowindow.setContent(
       `<strong>${place.displayName}</strong><br>
@@ -102,4 +89,19 @@ async function init2() {
   })
 }
 
-document.addEventListener('DOMContentLoaded', init2);
+document.addEventListener('DOMContentLoaded', init);
+
+function setInitialMapPosition() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      const marker = document.querySelector('gmp-advanced-marker');
+      const pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      }
+      map.setCenter(pos)
+      marker.position = pos
+      marker.content = whitePin.element
+    })
+  }
+}
