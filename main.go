@@ -3,10 +3,13 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/siuyin/dflt"
+	"github.com/siuyin/gmap/lta"
 	"github.com/siuyin/gmap/public"
 )
 
@@ -21,6 +24,7 @@ func main() {
 	http.HandleFunc("/placepickermap", placePickerMapHandler)
 	http.HandleFunc("/datalayers", dataLayersHandler)
 	http.HandleFunc("/bicyclepark",bicyleParkHandler)
+	http.HandleFunc("/bicycleParkingSpots", bicycleParkingSpotsHandler)
 	http.HandleFunc("/index.html", indexHandler)
 
 	http.Handle("/", http.FileServer(http.FS(public.Content)))
@@ -60,4 +64,18 @@ func dataLayersHandler(w http.ResponseWriter, r *http.Request) {
 func bicyleParkHandler(w http.ResponseWriter, r *http.Request) {
 	key := dflt.EnvString("GOOGLE_MAPS_API_KEY", "your-api-key-here")
 	t.ExecuteTemplate(w, "bicyclepark.html", struct{ Key string }{key})
+}
+
+func bicycleParkingSpotsHandler(w http.ResponseWriter, r *http.Request) {
+	lat,err := strconv.ParseFloat(r.FormValue("Lat"),64)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	lng,err := strconv.ParseFloat(r.FormValue("Lng"),64)
+	if err != nil {
+		log.Fatal(err)
+	}	
+	
+	io.WriteString(w,lta.BicycleParkingSpots(lat,lng))
 }

@@ -1,0 +1,157 @@
+{
+  "odata.metadata": "http://datamall2.mytransport.sg/ltaodataservice/$metadata#BicycleParkingv2",
+  "value": [
+    {
+      "Description": "BOON TAT STREET",
+      "Latitude": 1.2811963368023502,
+      "Longitude": 103.84838929966683,
+      "RackType": "LTA_RACKS",
+      "RackCount": 19,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "BUS STOP 03021",
+      "Latitude": 1.2825031995900178,
+      "Longitude": 103.84995655760744,
+      "RackType": "Yellow Box",
+      "RackCount": 10,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "BUS STOP 03111",
+      "Latitude": 1.2783064365300518,
+      "Longitude": 103.84839787348182,
+      "RackType": "Yellow Box",
+      "RackCount": 7,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "BUS STOP 03151",
+      "Latitude": 1.2789656758845622,
+      "Longitude": 103.84781696893526,
+      "RackType": "Yellow Box",
+      "RackCount": 10,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "BUS STOP 3059",
+      "Latitude": 1.2811124252005228,
+      "Longitude": 103.85144598066319,
+      "RackType": "Yellow Box",
+      "RackCount": 20,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "BUS STOP 3381",
+      "Latitude": 1.2819316132444643,
+      "Longitude": 103.85288611665246,
+      "RackType": "Yellow Box",
+      "RackCount": 20,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "BUS STOP 3391",
+      "Latitude": 1.2804196888185029,
+      "Longitude": 103.85509424903044,
+      "RackType": "Yellow Box",
+      "RackCount": 20,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "CAPITASPRING-1",
+      "Latitude": 1.2837675123956351,
+      "Longitude": 103.85116384706764,
+      "RackType": "LTA_Racks",
+      "RackCount": 4,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "CAPITASPRING-2",
+      "Latitude": 1.2837812575486576,
+      "Longitude": 103.85097950016892,
+      "RackType": "LTA_Racks",
+      "RackCount": 2,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "CAPITASPRING-3",
+      "Latitude": 1.284053848144642,
+      "Longitude": 103.85040597799488,
+      "RackType": "LTA_Racks",
+      "RackCount": 2,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "DOWNTOWN MRT YB_1",
+      "Latitude": 1.2797627746028437,
+      "Longitude": 103.85266669143036,
+      "RackType": "Yellow Box",
+      "RackCount": 10,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "DOWNTOWN MRT YB_2",
+      "Latitude": 1.2794313370291166,
+      "Longitude": 103.85316701797191,
+      "RackType": "Yellow Box",
+      "RackCount": 10,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "MARINA BAY MRT_YB2",
+      "Latitude": 1.2774957833018443,
+      "Longitude": 103.85426867093474,
+      "RackType": "Yellow Box",
+      "RackCount": 10,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "RAFFLES PLACE MRT YB_1",
+      "Latitude": 1.282387978702127,
+      "Longitude": 103.85146964889739,
+      "RackType": "Yellow Box",
+      "RackCount": 16,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "RAFFLES PLACE MRT YB_2",
+      "Latitude": 1.2825092515249628,
+      "Longitude": 103.85093134408204,
+      "RackType": "Yellow Box",
+      "RackCount": 10,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "SBF CENTRE",
+      "Latitude": 1.278307025453999,
+      "Longitude": 103.84751695770919,
+      "RackType": "Yellow Box",
+      "RackCount": 13,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "SHENTON WAY MRT_1",
+      "Latitude": 1.2770902734974914,
+      "Longitude": 103.8509659366365,
+      "RackType": "MRT_RACKS",
+      "RackCount": 134,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "TELOK AYER MRT A",
+      "Latitude": 1.2818418299696361,
+      "Longitude": 103.84873516426735,
+      "RackType": "MRT_RACKS",
+      "RackCount": 102,
+      "ShelterIndicator": "N"
+    },
+    {
+      "Description": "TELOK AYER STREET",
+      "Latitude": 1.2800328030293808,
+      "Longitude": 103.84721188593248,
+      "RackType": "LTA_RACKS",
+      "RackCount": 19,
+      "ShelterIndicator": "N"
+    }
+  ]
+}

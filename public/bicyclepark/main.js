@@ -13,10 +13,11 @@ async function loadData() {
   whitePin = new PinElement({ glyphColor: "white", background: "#6600cc" });
 
   map = document.querySelector('gmp-map').innerMap;
-  setInitialMapPosition()
+  await setInitialMapPosition()
   infoWindow = new InfoWindow({ pixelOffset: { height: -37 } });
+  const ctr = map.getCenter()
+  map.data.loadGeoJson(`bicycleParkingSpots?Lat=${ctr.lat()}&Lng=${ctr.lng()}`)
 
-  map.data.loadGeoJson("bicyclepark/ltaBicycleRack.geojson");
   map.data.addListener('click', (e) => showRackInfo(e.latLng, e.feature));
 }
 
@@ -64,6 +65,8 @@ async function init() {
       map.center = place.location;
       map.zoom = 17;
     }
+    const loc = place.location
+    map.innerMap.data.loadGeoJson(`bicycleParkingSpots?Lat=${loc.lat()}&Lng=${loc.lng()}`)
 
     marker.position = place.location;
     marker.content = whitePin.element;
@@ -78,7 +81,7 @@ async function init() {
   marker.addEventListener("gmp-click", () => {
     const place = placePicker.value
     if (!place) { return }
-    
+
     marker.content = whitePin.element
     infowindow.setContent(
       `<strong>${place.displayName}</strong><br>
@@ -91,7 +94,7 @@ async function init() {
 
 document.addEventListener('DOMContentLoaded', init);
 
-function setInitialMapPosition() {
+async function setInitialMapPosition() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
       const marker = document.querySelector('gmp-advanced-marker');
