@@ -22,7 +22,7 @@ jobs:
         run: |
           go version
           go mod tidy
-          go test ./...
+          LTA_ACCOUNT_KEY="${{ secrets.LTA_ACCOUNT_KEY }}" go test ./...
           GOOS=linux GOARCH=arm GOARM=6 go build -o gmap .
           file ./gmap
           ls -lh ./gmap
