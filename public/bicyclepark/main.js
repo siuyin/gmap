@@ -89,6 +89,17 @@ async function init2() {
     `);
     infowindow.open(map.innerMap, marker);
   });
+
+  marker.addEventListener("click",()=>{
+    const place = placePicker.value
+    marker.content = whitePin.element
+    infowindow.setContent(
+      `<strong>${place.displayName}</strong><br>
+       <span>${place.formattedAddress}</span><br>
+       <span>${place.location}</span>
+    `)
+    infowindow.open(map.innerMap, marker)
+  })
 }
 
 document.addEventListener('DOMContentLoaded', init2);
