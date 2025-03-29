@@ -23,8 +23,11 @@ async function loadData() {
 
 function showRackInfo(position, feature) {
   const content = `
-    <div style="padding: 8px">
-      <h2 style="margin-top: 0">${feature.getProperty('Description')}</h2>
+    <div>
+      <strong>${feature.getProperty('Description')}</strong><br/>
+      <span>${feature.getProperty("RackType")}</span><br/>
+      <span>${feature.getProperty("RackCount")} Lots</span><br/>
+      <span>Sheltered: ${feature.getProperty("ShelterIndicator")}</span><br/>
     </div>
   `;
 
