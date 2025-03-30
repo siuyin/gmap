@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"fmt"
 	"html/template"
 	"io"
@@ -19,13 +20,15 @@ func main() {
 	t = template.Must(template.ParseFS(public.Content, "tmpl/*"))
 	http.HandleFunc("/myloc", myLocationPageHandler)
 	http.HandleFunc("/ger", gerHandler)
-	http.HandleFunc("/{$}", indexHandler)
+	http.Handle("/{$}", http.HandlerFunc(indexHandler))
 	http.HandleFunc("/placepicker", placePickerHandler)
 	http.HandleFunc("/placepickermap", placePickerMapHandler)
 	http.HandleFunc("/datalayers", dataLayersHandler)
-	http.HandleFunc("/bicyclepark",bicyleParkHandler)
+	http.HandleFunc("/bicyclepark", bicyleParkHandler)
 	http.HandleFunc("/bicycleParkingSpots", bicycleParkingSpotsHandler)
-	http.HandleFunc("/index.html", indexHandler)
+	http.Handle("/protected",auth(http.HandlerFunc(protectedHandler)))
+	http.HandleFunc("/login",loginHandler)
+	http.Handle("/index.html", http.HandlerFunc(indexHandler))
 
 	http.Handle("/", http.FileServer(http.FS(public.Content)))
 
@@ -67,15 +70,40 @@ func bicyleParkHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func bicycleParkingSpotsHandler(w http.ResponseWriter, r *http.Request) {
-	lat,err := strconv.ParseFloat(r.FormValue("Lat"),64)
+	lat, err := strconv.ParseFloat(r.FormValue("Lat"), 64)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	lng,err := strconv.ParseFloat(r.FormValue("Lng"),64)
+	lng, err := strconv.ParseFloat(r.FormValue("Lng"), 64)
 	if err != nil {
 		log.Fatal(err)
-	}	
-	
-	io.WriteString(w,bike.ParkingSpots(lat,lng))
+	}
+
+	io.WriteString(w, bike.ParkingSpots(lat, lng))
+}
+
+func auth(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		a := r.Header.Get("Authorization")
+		log.Printf("authorization with example USER_PASSWD='myUserName:myPassword' : %s", a)
+		ans := fmt.Sprintf("Basic %s", base64.StdEncoding.EncodeToString([]byte(dflt.EnvString("USER_PASSWD", "my:passwd"))))
+		if a != ans {
+			log.Println("authorization failed")
+			w.Header().Add("WWW-Authenticate", `Basic realm="Restricted"`)
+			// w.WriteHeader(http.StatusUnauthorized)
+			http.Redirect(w,r,"/",http.StatusUnauthorized)
+			return
+		}
+		log.Println("authorized with correct userid and password")
+		next.ServeHTTP(w, r)
+	})
+}
+
+func loginHandler(w http.ResponseWriter,r*http.Request){
+// TODO
+}
+
+func protectedHandler(w http.ResponseWriter,r*http.Request){
+	io.WriteString(w,"protected content now visible")
 }
