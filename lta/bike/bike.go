@@ -1,6 +1,5 @@
-// Package lta converts Singapore Land Transport Authority Bicycle Parking responses to geojson
-// Deprecated: Use lta/bike instead. The lta package is being expanded to cover buses and expressway traffic.
-package lta
+// Package bike converts Singapore Land Transport Authority Bicycle Parking responses to geojson
+package bike
 
 import (
 	"bytes"
@@ -13,12 +12,12 @@ import (
 	"github.com/siuyin/dflt"
 )
 
-type BicycleResponse struct {
-	URL   string           `json:"odata.metadata"`
-	Value []BicycleParking `json:"value"`
+type Response struct {
+	URL   string    `json:"odata.metadata"`
+	Value []Parking `json:"value"`
 }
 
-type BicycleParking struct {
+type Parking struct {
 	Description      string  `json:"Description"`
 	Latitude         float64 `json:"Latitude"`
 	Longitude        float64 `json:"Longitude"`
@@ -27,8 +26,8 @@ type BicycleParking struct {
 	ShelterIndicator string  `json:"ShelterIndicator"`
 }
 
-func load(r io.Reader) []BicycleParking {
-	var res BicycleResponse
+func load(r io.Reader) []Parking {
+	var res Response
 	dec := json.NewDecoder(r)
 	if err := dec.Decode(&res); err != nil {
 		log.Fatal(err)
@@ -42,14 +41,18 @@ type FeatureCollection struct {
 }
 
 type Feature struct {
-	Type       string         `json:"type"`
-	Geometry   Geometry       `json:"geometry"`
-	Properties BicycleParking `json:"properties"`
+	Type       string   `json:"type"`
+	Geometry   Geometry `json:"geometry"`
+	Properties Parking  `json:"properties"`
 }
 
 type Geometry struct {
 	Type        string    `json:"type"`
 	Coordinates []float64 `json:"coordinates"`
+}
+
+func init() {
+	log.Println("lta/bike package loaded with LTA_ACCOUNT_KEY=****")
 }
 
 // GeoJSON reads an LTA Bicycle Parking response and returns a json string.
@@ -76,16 +79,16 @@ func GeoJSON(r io.Reader) string {
 	return b.String()
 }
 
-func BicycleParkingSpots(lat, lng float64) string {
+func ParkingSpots(lat, lng float64) string {
 	key := dflt.EnvString("LTA_ACCOUNT_KEY", "your-account-key")
-	ltaURL := fmt.Sprintf("https://datamall2.mytransport.sg/ltaodataservice/BicycleParkingv2?Lat=%f&Long=%f",lat,lng)
+	ltaURL := fmt.Sprintf("https://datamall2.mytransport.sg/ltaodataservice/BicycleParkingv2?Lat=%f&Long=%f", lat, lng)
 	client := &http.Client{}
 
-	req,err := http.NewRequest("GET", ltaURL, nil)
+	req, err := http.NewRequest("GET", ltaURL, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	req.Header.Set("accountKey", key)
 	res, err := client.Do(req)
 	if err != nil {

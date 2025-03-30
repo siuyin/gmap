@@ -9,7 +9,7 @@ import (
 	"strconv"
 
 	"github.com/siuyin/dflt"
-	"github.com/siuyin/gmap/lta"
+	"github.com/siuyin/gmap/lta/bike"
 	"github.com/siuyin/gmap/public"
 )
 
@@ -30,7 +30,7 @@ func main() {
 	http.Handle("/", http.FileServer(http.FS(public.Content)))
 
 	port := dflt.EnvString("PORT", "8080")
-	log.Printf("Starting server: GOOGLE_MAPS_API_KEY=**** PORT=%s", port)
+	log.Printf("Starting web server: GOOGLE_MAPS_API_KEY=**** PORT=%s", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
@@ -77,5 +77,5 @@ func bicycleParkingSpotsHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}	
 	
-	io.WriteString(w,lta.BicycleParkingSpots(lat,lng))
+	io.WriteString(w,bike.ParkingSpots(lat,lng))
 }
